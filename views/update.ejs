@@ -1,0 +1,31 @@
+<% include ./partials/header %>
+<div class="container">
+	<a href="/"><h1>Hvordan er været?</h1></a>
+
+	<fieldset class="form-group">
+	  <form action="/update" method="post">
+	    <div class="form-group">
+			  <label for="city">Oppdater værmåling for en by</label>
+			  <input autofocus type="text" name="city" class="form-control" id="city" placeholder="Stedsnavn" required>
+	    </div>
+			<div class="form-group">
+		    <button class="btn btn-primary">Send</button>
+			</div>
+	  </form>
+	</fieldset>
+	<% if (messages.info) { %>
+        <div class="alert alert-info" role="alert">
+            <%= messages.info %>
+        </div>
+      <% } %>
+	<% if(records != null){ %>
+	<a href="/">Legg til nye byer</a>
+  	<p class="lead">Tidligere målte grader:</p>
+  	<ul>
+  	  <% records.forEach((record) => { %>
+  	    <li><span class="cityName"><%= `${record.city}` %></span><%=`, ${record.temp}  ℃. Målt: ${moment(record.created).format("DD.MM.YY, h:mm:ss a")}` %></li>
+  	  <% }) %>
+  	</ul>
+  	<% } %>
+</div>
+<% include ./partials/footer %>
